@@ -9,6 +9,12 @@ test.beforeEach(async ({ page }) => {
   await Login.login('John Doe', 'ThisIsNotAPassword');;
 });
 
+test('check appointment booking fields for starting values and presence in form', async ({ page }) => {
+  const Appointment = new AppointmentPage(page);
+  
+  await Appointment.preBookingPageCheck();
+})
+
 test('appointment creation using medicare and Hong Kong facility', async ({ page }) => {
 
   const Appointment = new AppointmentPage(page);

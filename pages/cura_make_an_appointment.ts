@@ -65,10 +65,24 @@ export class AppointmentPage{
         this.go_to_homepage = page.locator('.btn btn-default');
     }
 
+    async preBookingPageCheck(){
+        await expect(this.facility_drop_down).toBeVisible();
+        await expect(this.hospital_readmit).toBeVisible();
+        await expect(this.hospital_readmit).not.toBeChecked();
+        await expect(this.healthcare_medicare).toBeVisible();
+        await expect(this.healthcare_medicare).toBeChecked();
+        await expect(this.healthcare_medicaid).not.toBeChecked();
+        await expect(this.visit_date_entered).toBeVisible();
+        await expect(this.healthcare_none).not.toBeChecked();        
+        await expect(this.comment).toBeVisible();
+        await expect(this.comment).toHaveValue('');
+        await expect(this.book_appointment).toBeVisible();
+        await expect(this.book_appointment).toBeEnabled();
+    }
+
         //create appointment using medicare with fracility at Hong Kong      
     async make_an_appointment_1(){
        await this.facility_drop_down.click();
-        // await this.facility_hk.click();
         await this.facility_hk.selectOption('Hongkong CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_medicare.click();
