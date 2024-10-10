@@ -84,7 +84,8 @@ export class AppointmentPage{
     async verify_appointment_1(){
         //verify page URL
         await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
-        //verify labels
+        //verify labels - only doing this on first test as risk of it changing on susequent tests seems pretty low. 
+        // In this, and each of thesubsequent tests we will continue to confirm the appointment values
         await expect (this.booked_facility).toHaveText('Facility');
         await expect (this.apply_for_hosp_read).toHaveText('Apply for hospital readmission');
         await expect (this.healthcare_program).toHaveText('Healthcare Program');
@@ -119,12 +120,7 @@ export class AppointmentPage{
     async verify_appointment_2(){
         //verify page URL
         await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
-        //verify labels
-        await expect (this.booked_facility).toHaveText('Facility');
-        await expect (this.apply_for_hosp_read).toHaveText('Apply for hospital readmission');
-        await expect (this.healthcare_program).toHaveText('Healthcare Program');
-        await expect (this.visit_date_check).toHaveText('Visit Date');
-        await expect (this.comment_check).toHaveText('Comment');
+        
         //verify appointment data on confirmation page
         await expect (this.ac_facility).toHaveText('Tokyo CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
@@ -153,12 +149,7 @@ export class AppointmentPage{
     async verify_appointment_3(){
         //verify page URL
         await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
-        //verify labels
-        await expect (this.booked_facility).toHaveText('Facility');
-        await expect (this.apply_for_hosp_read).toHaveText('Apply for hospital readmission');
-        await expect (this.healthcare_program).toHaveText('Healthcare Program');
-        await expect (this.visit_date_check).toHaveText('Visit Date');
-        await expect (this.comment_check).toHaveText('Comment');
+       
         //verify appointment data on confirmation page
         await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
