@@ -8,3 +8,5 @@ The tests are not perfect or complete but they are the result of me learning thi
 It also means there might be assertions in the tests that I wouldn't neccessarily use. 
 
 In a learning context I'm less fussed about the need for the assertion than learning how to use it so that it works properly and I can get a sense for when I would want to apply it.
+
+This repo might, or might not be, revisited to extend what it does.
