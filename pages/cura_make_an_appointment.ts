@@ -153,7 +153,7 @@ export class AppointmentPage{
         await this.hospital_readmit.check();
         await this.healthcare_none.click();
         await this.visit_date_entered.click()
-        await this.page.keyboard.type(getYesterday());
+        await this.page.keyboard.type(getToday());
         await this.page.keyboard.press('Tab');
         await this.comment.fill('test comment 3. This appointment has no associated healthcare system');
         await this.page.keyboard.press('Tab');
@@ -169,6 +169,37 @@ export class AppointmentPage{
         await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
         await expect (this.ac_healthcare_program).toHaveText('None');
+        await expect (this.ac_visit_date_entered).toHaveText(getToday());
+        await expect (this.ac_comment).toHaveText('test comment 3. This appointment has no associated healthcare system');     
+
+       
+    }
+
+     //on this website, this test will pass even though it is booking for yesterday.
+    // would expect in a production systen that booking for yesterday would not be allowed and would raise an error.
+     async make_an_appointment_4(){
+        await this.facility_drop_down.click();
+        // await this.facility_seoul.click();
+        await this.facility_seoul.selectOption('Seoul CURA Healthcare Center');
+        await this.hospital_readmit.check();
+        await this.healthcare_none.click();
+        await this.visit_date_entered.click()
+        await this.page.keyboard.type(getYesterday());
+        await this.page.keyboard.press('Tab');
+        await this.comment.fill('test comment 3. This appointment has no associated healthcare system');
+        await this.page.keyboard.press('Tab');
+        await this.book_appointment.click();
+    }
+    //this is where we check the appointment to confirm entered equals retained
+    //verify with assertions
+    async verify_appointment_4(){
+        //verify page URL
+        await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
+       
+        //verify appointment data on confirmation page
+        await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
+        await expect (this.ac_hospital_readmit).toHaveText('Yes');
+        await expect (this.ac_healthcare_program).toHaveText('None');
         await expect (this.ac_visit_date_entered).toHaveText(getYesterday());
         await expect (this.ac_comment).toHaveText('test comment 3. This appointment has no associated healthcare system');
     
@@ -177,4 +208,6 @@ export class AppointmentPage{
 
        
     }
+
+
     };

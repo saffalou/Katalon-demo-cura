@@ -46,6 +46,17 @@ test('appointment creation using medicare and Hong Kong facility', async ({ page
           //check that the entered appointment details are those saved  and shown in the summary
           await Appointment.verify_appointment_3();
 
+        });
+
+        test('this should eb an error as  we are booking for yesterday but that is allowed on this site', async ({ page }) => {
+                  
+            const Appointment = new AppointmentPage(page);
+          //create new appointment
+            await Appointment.make_an_appointment_4();
+          
+            //check that the entered appointment details are those saved  and shown in the summary
+            await Appointment.verify_appointment_4();
+
       });
   
 
