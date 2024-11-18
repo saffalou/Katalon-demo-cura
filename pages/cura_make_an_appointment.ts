@@ -196,10 +196,7 @@ export class AppointmentPage{
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
         await expect (this.ac_healthcare_program).toHaveText('None');
         await expect (this.ac_visit_date_entered).toHaveText(getYesterday());
-        await expect (this.ac_comment).toHaveText('test comment 3. This appointment has no associated healthcare system');
-    
-
-       
+        await expect (this.ac_comment).toHaveText('test comment 3. This appointment has no associated healthcare system');       
 
        
     }
