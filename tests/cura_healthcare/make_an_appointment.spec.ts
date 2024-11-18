@@ -48,7 +48,7 @@ test('appointment creation using medicare and Hong Kong facility', async ({ page
 
         });
 
-        test('this should eb an error as  we are booking for yesterday but that is allowed on this site', async ({ page }) => {
+        test('this should be an error as  we are booking for yesterday but that is allowed on this site', async ({ page }) => {
                   
             const Appointment = new AppointmentPage(page);
           //create new appointment
