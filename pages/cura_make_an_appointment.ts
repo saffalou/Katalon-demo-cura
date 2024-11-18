@@ -1,13 +1,13 @@
 import { type Page, type Locator, expect } from "@playwright/test";
 import { getToday, getTomorrow, getYesterday } from "../utilities/dateUtils";
 
+const APPOINTMENT_SUMMARY_URL = 'https://katalon-demo-cura.herokuapp.com/appointment.php#summary';
+
 export class AppointmentPage{
     readonly page: Page;
     //data entered for appointment
     readonly facility_drop_down: Locator;
-    readonly facility_hk: Locator;    
-    readonly facility_tokyo: Locator;
-    readonly facility_seoul: Locator;
+    readonly facility: Locator; 
     readonly hospital_readmit: Locator;
     readonly healthcare_medicare: Locator;
     readonly healthcare_medicaid: Locator;
@@ -37,10 +37,8 @@ export class AppointmentPage{
         const facilitySelect = page.getByLabel('Facility');
 
         this.page = page;
-        this.facility_drop_down = page.locator('#combo_facility')
-        this.facility_hk = page.getByLabel('Facility');
-        this.facility_tokyo = page.getByLabel('Facility');
-        this.facility_seoul = page.getByLabel('Facility');        
+        this.facility_drop_down = page.locator('#combo_facility')   
+        this.facility = page.getByLabel('Facility'); 
         this.hospital_readmit = page.getByLabel('Apply for hospital readmission');
         this.healthcare_medicare = page.getByText('Medicare');
         this.healthcare_medicaid = page.getByText('Medicaid');
@@ -84,7 +82,7 @@ export class AppointmentPage{
         //create appointment using medicare with facility at Hong Kong      
     async make_an_appointment_1(){    
        await this.facility_drop_down.click();
-        await this.facility_hk.selectOption('Hongkong CURA Healthcare Center');
+        await this.facility.selectOption('Hongkong CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_medicare.click();
         await this.visit_date_entered.click()
@@ -98,7 +96,7 @@ export class AppointmentPage{
     //verify with assertions
     async verify_appointment_1(){
         //verify page URL
-        await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
+        await expect (this.page).toHaveURL(APPOINTMENT_SUMMARY_URL);
         //verify labels - only doing this on first test as risk of it changing on susequent tests seems pretty low. 
         // In this, and each of thesubsequent tests we will continue to confirm the appointment values
         await expect (this.booked_facility).toHaveText('Facility');
@@ -117,8 +115,7 @@ export class AppointmentPage{
      //create appointment using medicare with facility at Tokyo      
      async make_an_appointment_2(){
         await this.facility_drop_down.click();
-        // await this.facility_tokyo.click;
-        await this.facility_tokyo.selectOption('Tokyo CURA Healthcare Center');
+        await this.facility.selectOption('Tokyo CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_medicaid.click();
         await this.visit_date_entered.click()
@@ -134,7 +131,7 @@ export class AppointmentPage{
     //verify with assertions
     async verify_appointment_2(){
         //verify page URL
-        await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
+        await expect (this.page).toHaveURL(APPOINTMENT_SUMMARY_URL);
         
         //verify appointment data on confirmation page
         await expect (this.ac_facility).toHaveText('Tokyo CURA Healthcare Center');
@@ -148,8 +145,7 @@ export class AppointmentPage{
     //create appointment using "none" with facility at Seoul      
     async make_an_appointment_3(){
         await this.facility_drop_down.click();
-        // await this.facility_seoul.click();
-        await this.facility_seoul.selectOption('Seoul CURA Healthcare Center');
+        await this.facility.selectOption('Seoul CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_none.click();
         await this.visit_date_entered.click()
@@ -163,7 +159,7 @@ export class AppointmentPage{
     //verify with assertions
     async verify_appointment_3(){
         //verify page URL
-        await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
+        await expect (this.page).toHaveURL(APPOINTMENT_SUMMARY_URL);
        
         //verify appointment data on confirmation page
         await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
@@ -179,8 +175,7 @@ export class AppointmentPage{
     // would expect in a production systen that booking for yesterday would not be allowed and would raise an error.
      async make_an_appointment_4(){
         await this.facility_drop_down.click();
-        // await this.facility_seoul.click();
-        await this.facility_seoul.selectOption('Seoul CURA Healthcare Center');
+        await this.facility.selectOption('Seoul CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_none.click();
         await this.visit_date_entered.click()
@@ -194,7 +189,7 @@ export class AppointmentPage{
     //verify with assertions
     async verify_appointment_4(){
         //verify page URL
-        await expect (this.page).toHaveURL('https://katalon-demo-cura.herokuapp.com/appointment.php#summary');
+        await expect (this.page).toHaveURL(APPOINTMENT_SUMMARY_URL);
        
         //verify appointment data on confirmation page
         await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
