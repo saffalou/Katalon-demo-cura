@@ -1,4 +1,5 @@
 import { type Page, type Locator, expect } from "@playwright/test";
+import { getToday, getTomorrow, getYesterday } from "../utilities/dateUtils";
 
 export class AppointmentPage{
     readonly page: Page;
@@ -80,14 +81,14 @@ export class AppointmentPage{
         await expect(this.book_appointment).toBeEnabled();
     }
 
-        //create appointment using medicare with fracility at Hong Kong      
-    async make_an_appointment_1(){
+        //create appointment using medicare with facility at Hong Kong      
+    async make_an_appointment_1(){    
        await this.facility_drop_down.click();
         await this.facility_hk.selectOption('Hongkong CURA Healthcare Center');
         await this.hospital_readmit.check();
         await this.healthcare_medicare.click();
         await this.visit_date_entered.click()
-        await this.page.keyboard.type('27/11/2024');
+        await this.page.keyboard.type(getToday());
         await this.page.keyboard.press('Tab');
         await this.comment.fill('test comment 1. This should be a medicare appointment');
         await this.page.keyboard.press('Tab');
@@ -109,7 +110,7 @@ export class AppointmentPage{
         await expect (this.ac_facility).toHaveText('Hongkong CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
         await expect (this.ac_healthcare_program).toHaveText('Medicare');
-        await expect (this.ac_visit_date_entered).toHaveText('27/11/2024');
+        await expect (this.ac_visit_date_entered).toHaveText(getToday());
         await expect (this.ac_comment).toHaveText('test comment 1. This should be a medicare appointment');
  
     }
@@ -122,7 +123,7 @@ export class AppointmentPage{
         await this.healthcare_medicaid.click();
         await this.visit_date_entered.click()
         //.fill() did not work well on this field. .keyboard.type() seems to work well
-        await this.page.keyboard.type('28/11/2024');
+        await this.page.keyboard.type(getTomorrow());
         await this.page.keyboard.press('Tab');
         //.fill() did not work well on this field. .keyboard.type() seems to work well
         await this.comment.fill('test comment 2. This should be a medicaid appointment');
@@ -139,7 +140,7 @@ export class AppointmentPage{
         await expect (this.ac_facility).toHaveText('Tokyo CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
         await expect (this.ac_healthcare_program).toHaveText('Medicaid');
-        await expect (this.ac_visit_date_entered).toHaveText('28/11/2024');
+        await expect (this.ac_visit_date_entered).toHaveText(getTomorrow());
         await expect (this.ac_comment).toHaveText('test comment 2. This should be a medicaid appointment');
     
     }
@@ -152,7 +153,7 @@ export class AppointmentPage{
         await this.hospital_readmit.check();
         await this.healthcare_none.click();
         await this.visit_date_entered.click()
-        await this.page.keyboard.type('29/11/2024');
+        await this.page.keyboard.type(getYesterday());
         await this.page.keyboard.press('Tab');
         await this.comment.fill('test comment 3. This appointment has no associated healthcare system');
         await this.page.keyboard.press('Tab');
@@ -168,7 +169,7 @@ export class AppointmentPage{
         await expect (this.ac_facility).toHaveText('Seoul CURA Healthcare Center');
         await expect (this.ac_hospital_readmit).toHaveText('Yes');
         await expect (this.ac_healthcare_program).toHaveText('None');
-        await expect (this.ac_visit_date_entered).toHaveText('29/11/2024');
+        await expect (this.ac_visit_date_entered).toHaveText(getYesterday());
         await expect (this.ac_comment).toHaveText('test comment 3. This appointment has no associated healthcare system');
     
 
